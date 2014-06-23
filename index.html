@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>An app</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('play');
+        return false;
+      });
+      socket.on('line', function(line){
+        // $('#messages').prepend($('<li>').text(msg));
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        context.beginPath();
+        context.moveTo(line.start_x, line.start_y);
+        context.lineTo(line.end_x, line.end_y);
+        context.stroke();
+      });
+    </script>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <script>
+      
+    </script>
+  </body>
+</html>

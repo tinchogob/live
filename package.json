@@ -1,0 +1,11 @@
+{
+  "name": "live",
+  "version": "0.1.0",
+  "author": "Martin Gonzalez <martin.gonzalez@mercadolibre.com>",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "socket.io": "~1.0.4",
+    "express": "~4.4.3"
+  }
+}
