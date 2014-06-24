@@ -10,21 +10,26 @@ var rnd = function() {
 	return Math.floor((Math.random() * 10) + 1);	
 };
 
+var colors = ["red", "blue", "green", "yellow"];
+
 io.on('connection', function(socket){
 	var i = 1;
 	while (i <= 1000) {
 		setTimeout(function() {
-			var line = {
-				start_x: (rnd() * 100) % 800,
-				start_y: (rnd() * 100) % 800,
-				end_x: (rnd() * 100) % 600,
-				end_y: (rnd() * 100) % 600,
+			var event = {
+				color: colors[rnd() % colors.length],
+				pos_x: (rnd() * 100) % 600,
+				pos_y: (rnd() * 100) % 600,
 			};
-			console.log(JSON.stringify(line));
-			io.emit('line', line);
-		}, i*500);
+			console.log(JSON.stringify(event));
+			io.emit('event', event);
+		}, i*100);
 		i++
 	}
+	
+	socket.on("disconnected", function() {
+		console.log("user disconnected");
+	});
 });
 
 http.listen(3000, function(){

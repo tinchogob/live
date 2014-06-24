@@ -21,19 +21,22 @@
         socket.emit('play');
         return false;
       });
-      socket.on('line', function(line){
-        // $('#messages').prepend($('<li>').text(msg));
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
-        context.beginPath();
-        context.moveTo(line.start_x, line.start_y);
-        context.lineTo(line.end_x, line.end_y);
-        context.stroke();
+      socket.on('event', function(event){
+	var canvas = document.getElementById('myCanvas');
+	var context = canvas.getContext('2d');
+	var centerX = canvas.width / 2;
+	var centerY = canvas.height / 2;
+	var radius = 80;
+	
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	context.fillStyle = event.color;
+	context.fill();
+	context.lineWidth = 5;
+	context.strokeStyle = '#003300';
+	context.stroke();
       });
     </script>
-    <canvas id="myCanvas" width="800" height="600"></canvas>
-    <script>
-      
-    </script>
+    <canvas id="myCanvas" style="width: 100%; height: 60%;"></canvas>
   </body>
 </html>
